@@ -8,6 +8,7 @@ const resetCalculatorButton = "C";
 const backSpaceButton = "D";
 
 const inputField = document.querySelector("input");
+let readOnlyInputFieldValue = inputField.value;
 
 let num1 = null;
 let num2 = null;
@@ -19,16 +20,17 @@ logWorkingMemory("Calculator Start up...");
 
 buttonGrid.addEventListener("click", (event) => {
     const buttonPressed = event.target.innerText;
+    readOnlyInputFieldValue = inputField.value;
     if (validDigits.includes(buttonPressed)) {
         //Number Button Pressed
         if (upcomingOperation != null) {
             calculatorDisplay(buttonPressed);
             operationCache = upcomingOperation;
             upcomingOperation = null;
-        } else if (inputField.value == 0) {
+        } else if (readOnlyInputFieldValue == 0) {
             calculatorDisplay(buttonPressed);
         } else {
-            calculatorDisplay(inputField.value + buttonPressed)
+            calculatorDisplay(readOnlyInputFieldValue + buttonPressed)
         }
         logWorkingMemory(`${buttonPressed} Button Pressed`);
     } else if (validOperations.includes(buttonPressed)) {
@@ -39,9 +41,9 @@ buttonGrid.addEventListener("click", (event) => {
             upcomingOperation = buttonPressed;
 
             if (num1 == null) {
-                num1 = inputField.value;
+                num1 = readOnlyInputFieldValue;
             } else {
-                num2 = inputField.value;
+                num2 = readOnlyInputFieldValue;
                 performOperation(operationCache, num1, num2);
             }
         }
@@ -51,7 +53,7 @@ buttonGrid.addEventListener("click", (event) => {
 
     } else if (buttonPressed == equalSign) {
         if (operationCache != null) {
-            num2 = inputField.value;
+            num2 = readOnlyInputFieldValue;
             performOperation(operationCache, num1, num2);
         } else {
             console.log("No operation to perform...");
@@ -59,8 +61,8 @@ buttonGrid.addEventListener("click", (event) => {
         logWorkingMemory(`${buttonPressed} Button Pressed`);
 
     } else if (buttonPressed == backSpaceButton) {
-        if (inputField.value.length > 1) {
-            inputField.value = inputField.value.slice(0, -1);
+        if (readOnlyInputFieldValue.length > 1) {
+            inputField.value = readOnlyInputFieldValue.slice(0, -1);
         } else {
             calculatorDisplay(0);
         }
@@ -92,7 +94,7 @@ function performOperation(operation, num1, num2) {
 
 function clearOperationMemory() {
     if (upcomingOperation != null) {
-        num1 = inputField.value;
+        num1 = readOnlyInputFieldValue;
         num2 = null;
         operationCache = null;
     } else {
@@ -116,7 +118,7 @@ function calculatorDisplay(numberToDisplay) {
 
 function logWorkingMemory(event) {
     console.log(`\nEvent:${event}
-Calculator Display:${inputField.value}
+Calculator Display:${readOnlyInputFieldValue}
 num1: ${num1}
 num2: ${num2}
 OperationCache:${operationCache}
