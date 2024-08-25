@@ -3,12 +3,11 @@
     font-family: "Roboto Mono";
 }
 
-body {
-    margin: 0;
-}
+
 
 .calculator {
-    height: 600px;
+    width: 100%;
+    max-width: 500px;
     background-color: grey;
     margin: auto;
     margin-top: 200px;
@@ -17,7 +16,7 @@ body {
 
 
 .calculator-input-box {
-    height: 15%;
+    height: 75px;
     width: 100%;
     background-color: black;
     color: white;
@@ -30,7 +29,6 @@ body {
 button {
     border: none;
     font-size: 64px;
-
 }
 
 
@@ -38,6 +36,7 @@ button {
     background-color: #D7D9DB;
     color: #000;
 }
+
 .calculator-input-button:hover {
     background-color: #e9ecee;
 
@@ -47,6 +46,7 @@ button {
     background-color: #df974c;
     color: white;
 }
+
 .calculator-operation-button:hover {
     background-color: #e8ad6e;
 
