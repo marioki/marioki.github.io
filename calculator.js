@@ -4,7 +4,6 @@ const buttonGrid = document.querySelector(".calculator-button-grid");
 const validDigits = "0123456789";
 const validOperations = "+-÷x";
 const equalSign = "=";
-const deletionCommands = "cd";
 const resetCalculatorButton = "C";
 const backSpaceButton = "D";
 
@@ -19,24 +18,25 @@ calculatorDisplay(0);
 logWorkingMemory("Calculator Start up...");
 
 buttonGrid.addEventListener("click", (event) => {
-    if (validDigits.includes(event.target.innerText)) {
+    const buttonPressed = event.target.innerText;
+    if (validDigits.includes(buttonPressed)) {
         //Number Button Pressed
         if (upcomingOperation != null) {
-            calculatorDisplay(event.target.innerText);
+            calculatorDisplay(buttonPressed);
             operationCache = upcomingOperation;
             upcomingOperation = null;
         } else if (inputField.value == 0) {
-            calculatorDisplay(event.target.innerText);
+            calculatorDisplay(buttonPressed);
         } else {
-            calculatorDisplay(inputField.value + event.target.innerText)
+            calculatorDisplay(inputField.value + buttonPressed)
         }
-        logWorkingMemory(`${event.target.innerText} Button Pressed`);
-    } else if (validOperations.includes(event.target.innerText)) {
+        logWorkingMemory(`${buttonPressed} Button Pressed`);
+    } else if (validOperations.includes(buttonPressed)) {
         //Operation Button Pressed
         if (upcomingOperation != null) {
-            upcomingOperation = event.target.innerText;
+            upcomingOperation = buttonPressed;
         } else {
-            upcomingOperation = event.target.innerText;
+            upcomingOperation = buttonPressed;
 
             if (num1 == null) {
                 num1 = inputField.value;
@@ -45,29 +45,29 @@ buttonGrid.addEventListener("click", (event) => {
                 performOperation(operationCache, num1, num2);
             }
         }
-        logWorkingMemory(`${event.target.innerText} Button Pressed`);
+        logWorkingMemory(`${buttonPressed} Button Pressed`);
 
 
 
-    } else if (event.target.innerText == equalSign) {
+    } else if (buttonPressed == equalSign) {
         if (operationCache != null) {
             num2 = inputField.value;
             performOperation(operationCache, num1, num2);
         } else {
             console.log("No operation to perform...");
         }
-        logWorkingMemory(`${event.target.innerText} Button Pressed`);
+        logWorkingMemory(`${buttonPressed} Button Pressed`);
 
-    } else if (event.target.innerText == backSpaceButton) {
+    } else if (buttonPressed == backSpaceButton) {
         if (inputField.value.length > 1) {
             inputField.value = inputField.value.slice(0, -1);
         } else {
             calculatorDisplay(0);
         }
-        logWorkingMemory(`${event.target.innerText} Button Pressed`);
-    } else if (event.target.innerText == resetCalculatorButton) {
+        logWorkingMemory(`${buttonPressed} Button Pressed`);
+    } else if (buttonPressed == resetCalculatorButton) {
         resetCalculator();
-        logWorkingMemory(`${event.target.innerText} Button Pressed`);
+        logWorkingMemory(`${buttonPressed} Button Pressed`);
     }
 })
 
