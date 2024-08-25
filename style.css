@@ -38,10 +38,10 @@ button {
     color: #000;
 }
 
-.calculator-input-button:hover {
+/* .calculator-input-button:hover {
     background-color: #e9ecee;
 
-}
+} */
 
 .calculator-operation-button {
     background-color: #df974c;
