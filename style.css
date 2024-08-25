@@ -38,20 +38,20 @@ button {
     color: #000;
 }
 
-/* .calculator-input-button:hover {
+.calculator-input-button:hover {
     background-color: #e9ecee;
 
-} */
+}
 
 .calculator-operation-button {
     background-color: #df974c;
     color: white;
 }
-/* 
+
 .calculator-operation-button:hover {
     background-color: #e8ad6e;
 
-} */
+}
 
 
 .calculator-button-grid {

@@ -18,7 +18,7 @@ let upcomingOperation = null;
 calculatorDisplay(0);
 logWorkingMemory("Calculator Start up...");
 
-buttonGrid.addEventListener("touchend", (event) => {
+buttonGrid.addEventListener("click", (event) => {
     const buttonPressed = event.target.innerText;
     readOnlyInputFieldValue = inputField.value;
     if (validDigits.includes(buttonPressed)) {
