@@ -19,9 +19,9 @@
 .calculator-input-box {
     height: 75px;
     width: 100%;
+    font-size: 2rem;
     background-color: black;
     color: white;
-    font-size: 32px;
     text-align: end;
     padding-right: 16px;
     border: none;
@@ -29,7 +29,7 @@
 
 button {
     border: none;
-    font-size: 64px;
+    font-size: 4rem;
 }
 
 
