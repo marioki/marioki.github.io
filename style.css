@@ -8,6 +8,7 @@
 .calculator {
     width: 100%;
     max-width: 500px;
+    min-width: 225px;
     background-color: grey;
     margin: auto;
     margin-top: 200px;
@@ -57,7 +58,6 @@ button {
     display: grid;
     background-color: black;
     gap: 2px;
-    height: 100%;
     grid-template-areas:
         "button-c button-c button-back-space button-division"
         "button-7 button-8 button-9 button-multiplication"
@@ -133,4 +133,8 @@ button {
 
 .button-0 {
     grid-area: button-0;
+}
+
+.version-number {
+    text-align: center;
 }
