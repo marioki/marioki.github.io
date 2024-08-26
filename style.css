@@ -1,140 +1,44 @@
 * {
     box-sizing: border-box;
-    font-family: "Roboto Mono";
+    font-family: "Space Mono";
 }
 
-
-
-.calculator {
-    width: 100%;
-    max-width: 500px;
-    min-width: 225px;
-    background-color: grey;
-    margin: auto;
-    margin-top: 200px;
+body {
+    margin: 0;
 }
 
-
-
-.calculator-input-box {
-    height: 75px;
-    width: 100%;
-    font-size: 2rem;
-    background-color: black;
-    color: white;
-    text-align: end;
-    padding-right: 16px;
-    border: none;
+.main-page-header {
+    display: flex;
+    justify-content: center;
+    background-color: aliceblue;
+    padding: 16px;
 }
 
-button {
-    border: none;
-    font-size: 4rem;
+.name-and-subtitle {
+    justify-content: center;
 }
 
-
-.calculator-input-button {
-    background-color: #D7D9DB;
-    color: #000;
-}
-
-.calculator-input-button:hover {
-    background-color: #e9ecee;
-
-}
-
-.calculator-operation-button {
-    background-color: #df974c;
-    color: white;
-}
-
-.calculator-operation-button:hover {
-    background-color: #e8ad6e;
-
-}
-
-
-.calculator-button-grid {
-    display: grid;
-    background-color: black;
-    gap: 2px;
-    grid-template-areas:
-        "button-c button-c button-back-space button-division"
-        "button-7 button-8 button-9 button-multiplication"
-        "button-4 button-5 button-6 button-substraction"
-        "button-1 button-2 button-3 button-addition"
-        "button-0 button-0 button-0 button-equal";
-}
-
-.button-c {
-    grid-area: button-c;
-}
-
-.button-back-space {
-    grid-area: button-back-space;
-}
-
-.button-division {
-    grid-area: button-division;
-}
-
-.button-multiplication {
-    grid-area: button-multiplication;
-}
-
-.button-substraction {
-    grid-area: button-substraction;
-}
-
-.button-addition {
-    grid-area: button-addition;
-}
-
-.button-equal {
-    grid-area: button-equal;
-}
-
-.button-7 {
-    grid-area: button-7;
-}
-
-.button-8 {
-    grid-area: button-8;
-}
-
-.button-9 {
-    grid-area: button-9;
-}
-
-.button-4 {
-    grid-area: button-4;
-}
-
-.button-5 {
-    grid-area: button-5;
-}
-
-.button-6 {
-    grid-area: button-6;
-}
-
-
-.button-1 {
-    grid-area: button-1;
-}
-
-.button-2 {
-    grid-area: button-2;
-}
-
-.button-3 {
-    grid-area: button-3;
-}
-
-.button-0 {
-    grid-area: button-0;
-}
-
-.version-number {
+.my-name {
     text-align: center;
+    margin: 0;
+}
+
+.subtitle {
+    margin: 0;
+}
+
+main {
+    display: flex;
+    margin: auto;
+    margin-top: 32px;
+    max-width: 700px;
+}
+
+.project-list {
+    list-style: decimal-leading-zeros;
+}
+
+.project-list-item {
+    text-decoration: none;
+    font-size: large;
 }
