@@ -8,7 +8,6 @@
 .calculator {
     width: 100%;
     max-width: 500px;
-    min-width: 225px;
     background-color: grey;
     margin: auto;
     margin-top: 25px;
@@ -17,7 +16,7 @@
 .calculator-input-box {
     height: 75px;
     width: 100%;
-    font-size: 2rem;
+    font-size: large;
     background-color: black;
     color: white;
     text-align: end;
@@ -27,7 +26,7 @@
 
 button {
     border: none;
-    font-size: 4rem;
+    font-size: large;
 }
 
 
