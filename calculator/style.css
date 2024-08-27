@@ -1,14 +1,43 @@
 * {
     box-sizing: border-box;
-    font-family: "Roboto Mono";
+    font-family: "Space Mono";
 }
 
 body {
-    max-width: 1000px;
-    margin: auto;
+    margin: 0;
 }
+
 a {
     text-decoration: none;
+}
+
+
+
+.project-article {
+    max-width: 50em;
+    margin: auto;
+    padding: 16px;
+    padding-bottom: 32;
+}
+
+.main-page-header {
+    display: flex;
+    justify-content: center;
+    background-color: aliceblue;
+    padding: 16px;
+}
+
+.name-and-subtitle {
+    justify-content: center;
+}
+
+.my-name {
+    text-align: center;
+    margin: 0;
+}
+
+.subtitle {
+    margin: 0;
 }
 
 .calculator {
@@ -139,28 +168,4 @@ button {
 
 .version-number {
     text-align: center;
-}
-
-.project-article {
-    margin: 16px;
-}
-
-.main-page-header {
-    display: flex;
-    justify-content: center;
-    background-color: aliceblue;
-    padding: 16px;
-}
-
-.name-and-subtitle {
-    justify-content: center;
-}
-
-.my-name {
-    text-align: center;
-    margin: 0;
-}
-
-.subtitle {
-    margin: 0;
 }
