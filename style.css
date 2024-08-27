@@ -7,6 +7,10 @@ body {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 .main-page-header {
     display: flex;
     justify-content: center;

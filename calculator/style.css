@@ -7,8 +7,9 @@ body {
     max-width: 1000px;
     margin: auto;
 }
-
-
+a {
+    text-decoration: none;
+}
 
 .calculator {
     width: 100%;
@@ -34,7 +35,6 @@ button {
     border: none;
     font-size: large;
 }
-
 
 .calculator-input-button {
     background-color: #D7D9DB;
@@ -121,7 +121,6 @@ button {
     grid-area: button-6;
 }
 
-
 .button-1 {
     grid-area: button-1;
 }
@@ -140,4 +139,28 @@ button {
 
 .version-number {
     text-align: center;
+}
+
+.project-article {
+    margin: 16px;
+}
+
+.main-page-header {
+    display: flex;
+    justify-content: center;
+    background-color: aliceblue;
+    padding: 16px;
+}
+
+.name-and-subtitle {
+    justify-content: center;
+}
+
+.my-name {
+    text-align: center;
+    margin: 0;
+}
+
+.subtitle {
+    margin: 0;
 }
