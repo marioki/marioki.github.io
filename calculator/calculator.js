@@ -4,11 +4,11 @@ const buttonGrid = document.querySelector(".calculator-button-grid");
 const validDigits = "0123456789";
 const validOperations = "+-÷x";
 const equalSign = "=";
+const deletionCommands = "cd";
 const resetCalculatorButton = "C";
 const backSpaceButton = "D";
 
 const inputField = document.querySelector("input");
-let readOnlyInputFieldValue = inputField.value;
 
 let num1 = null;
 let num2 = null;
@@ -19,57 +19,55 @@ calculatorDisplay(0);
 logWorkingMemory("Calculator Start up...");
 
 buttonGrid.addEventListener("click", (event) => {
-    const buttonPressed = event.target.innerText;
-    readOnlyInputFieldValue = inputField.value;
-    if (validDigits.includes(buttonPressed)) {
+    if (validDigits.includes(event.target.innerText)) {
         //Number Button Pressed
         if (upcomingOperation != null) {
-            calculatorDisplay(buttonPressed);
+            calculatorDisplay(event.target.innerText);
             operationCache = upcomingOperation;
             upcomingOperation = null;
-        } else if (readOnlyInputFieldValue == 0) {
-            calculatorDisplay(buttonPressed);
+        } else if (inputField.value == 0) {
+            calculatorDisplay(event.target.innerText);
         } else {
-            calculatorDisplay(readOnlyInputFieldValue + buttonPressed)
+            calculatorDisplay(inputField.value + event.target.innerText)
         }
-        logWorkingMemory(`${buttonPressed} Button Pressed`);
-    } else if (validOperations.includes(buttonPressed)) {
+        logWorkingMemory(`${event.target.innerText} Button Pressed`);
+    } else if (validOperations.includes(event.target.innerText)) {
         //Operation Button Pressed
         if (upcomingOperation != null) {
-            upcomingOperation = buttonPressed;
+            upcomingOperation = event.target.innerText;
         } else {
-            upcomingOperation = buttonPressed;
+            upcomingOperation = event.target.innerText;
 
             if (num1 == null) {
-                num1 = readOnlyInputFieldValue;
+                num1 = inputField.value;
             } else {
-                num2 = readOnlyInputFieldValue;
+                num2 = inputField.value;
                 performOperation(operationCache, num1, num2);
             }
         }
-        logWorkingMemory(`${buttonPressed} Button Pressed`);
+        logWorkingMemory(`${event.target.innerText} Button Pressed`);
 
 
 
-    } else if (buttonPressed == equalSign) {
+    } else if (event.target.innerText == equalSign) {
         if (operationCache != null) {
-            num2 = readOnlyInputFieldValue;
+            num2 = inputField.value;
             performOperation(operationCache, num1, num2);
         } else {
             console.log("No operation to perform...");
         }
-        logWorkingMemory(`${buttonPressed} Button Pressed`);
+        logWorkingMemory(`${event.target.innerText} Button Pressed`);
 
-    } else if (buttonPressed == backSpaceButton) {
-        if (readOnlyInputFieldValue.length > 1) {
-            inputField.value = readOnlyInputFieldValue.slice(0, -1);
+    } else if (event.target.innerText == backSpaceButton) {
+        if (inputField.value.length > 1) {
+            inputField.value = inputField.value.slice(0, -1);
         } else {
             calculatorDisplay(0);
         }
-        logWorkingMemory(`${buttonPressed} Button Pressed`);
-    } else if (buttonPressed == resetCalculatorButton) {
+        logWorkingMemory(`${event.target.innerText} Button Pressed`);
+    } else if (event.target.innerText == resetCalculatorButton) {
         resetCalculator();
-        logWorkingMemory(`${buttonPressed} Button Pressed`);
+        logWorkingMemory(`${event.target.innerText} Button Pressed`);
     }
 })
 
@@ -94,7 +92,7 @@ function performOperation(operation, num1, num2) {
 
 function clearOperationMemory() {
     if (upcomingOperation != null) {
-        num1 = readOnlyInputFieldValue;
+        num1 = inputField.value;
         num2 = null;
         operationCache = null;
     } else {
@@ -118,7 +116,7 @@ function calculatorDisplay(numberToDisplay) {
 
 function logWorkingMemory(event) {
     console.log(`\nEvent:${event}
-Calculator Display:${readOnlyInputFieldValue}
+Calculator Display:${inputField.value}
 num1: ${num1}
 num2: ${num2}
 OperationCache:${operationCache}
