@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+    font-family: "Space Mono";
+}
+
+main {
+    display: flex;
+
+}
+
+.play-area {
+    margin: auto;
+}
+
+.matrix {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.letter-row {
+    display: flex;
+    list-style: none;
+}
+
+.letter-box {
+    font-size: 2em;
+    font-weight: bold;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 4px;
+    align-content: center;
+    justify-content: center;
+    background-color: white;
+    border: 3px solid rgb(179, 179, 179);
+    width: 64px;
+    height: 64px;
+}
