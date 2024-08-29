@@ -1,38 +1,55 @@
 * {
-    box-sizing: border-box;
-    font-family: "Space Mono";
+  box-sizing: border-box;
+  font-family: "Space Mono";
 }
 
 main {
-    display: flex;
-
+  display: flex;
 }
 
 .play-area {
-    margin: auto;
+  margin: auto;
 }
 
 .matrix {
-    list-style: none;
-    padding-inline-start: 0;
+  list-style: none;
+  padding-inline-start: 0;
 }
 
 .letter-row {
-    display: flex;
-    list-style: none;
+  display: flex;
+  list-style: none;
 }
 
 .letter-box {
-    font-size: 2em;
-    font-weight: bold;
-    color: black;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 4px;
-    align-content: center;
-    justify-content: center;
-    background-color: white;
-    border: 3px solid rgb(179, 179, 179);
-    width: 64px;
-    height: 64px;
+  font-size: 2em;
+  font-weight: bold;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 4px;
+  align-content: center;
+  justify-content: center;
+  background-color: white;
+  border: 3px solid rgb(179, 179, 179);
+  width: 64px;
+  height: 64px;
+}
+
+.perfect-match {
+  border: none;
+  background-color: rgb(106, 171, 100);
+  color: white;
+}
+
+.dirty {
+  border: none;
+  background-color: rgb(120, 124, 126);
+  color: white;
+}
+
+.close-match {
+  border: none;
+  background-color: rgb(201, 180, 89);
+  color: white;
 }
