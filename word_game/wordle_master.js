@@ -36,10 +36,11 @@ let rowIndex = 0;
 const totalRows = 6;
 const totalColumns = 5;
 const matrix = generateLetterBoxMatix();
-const answer = ["M", "A", "R", "I", "O"];
+const answer = ["C", "A", "L", "M", "A"];
 const dirtyBoxStyle = "dirty";
 const closeMatchStyle = "close-match";
 const perfectMatchStyle = "perfect-match";
+let answerFrequencyMap = createLetterFrequencyMap(answer);
 
 document.addEventListener("keydown", (keyPressed) =>
   handleKeyboardInput(keyPressed)
@@ -79,23 +80,9 @@ function moveCursorToNextRow() {
   if (rowIndex < totalRows - 1) {
     rowIndex++;
     usedLetters = 0;
+    answerFrequencyMap = createLetterFrequencyMap(answer);
   } else {
     console.log("No more rows!");
-  }
-}
-
-function updateDisplay() {
-  for (let i = 0; i < totalRows; i++) {
-    for (let j = 0; j < totalColumns; j++) {
-      my2DArray[i][j] = {
-        letter: "",
-        dirty: false,
-        perfectMatch: null,
-        existsInWord: null,
-        borderColor: "green",
-      };
-      letterCounter++;
-    }
   }
 }
 
@@ -121,70 +108,85 @@ function deleteLastLetter() {
 }
 
 function compareGuessToAnswer() {
-  let resultByLetter = [];
-  let validLettersCache = answer.slice();
+  let comparisonResults = [];
+  const guess = matrix[rowIndex];
+
+  const answerMap = createLetterFrequencyMap(answer);
+
   console.log("Values Before Comparison:");
-  console.log(`ValidLettersCache: ${validLettersCache}`);
   console.log(`Answer: ${answer}`);
+  logMapValues(answerMap);
 
-  for (let index = 0; index < totalColumns; index++) {
-    console.log("Loop#" + index);
-    console.log(`Guess Letter: ${matrix[rowIndex][index].innerText}`);
-    console.log(`Answer Letter: ${answer[index]}`);
-    if (matrix[rowIndex][index].innerText === answer[index]) {
-      console.log(
-        `Guess: ${matrix[rowIndex][index].innerText} is Equal to ${answer[index]}`
-      );
-      resultByLetter.push(perfectMatchStyle);
-      let indexToDelete = validLettersCache.indexOf(answer[index]);
-      console.log(
-        `Deleting Letter: ${answer[index]} on index: ${indexToDelete}`
-      );
-      validLettersCache.splice(indexToDelete, 1);
-
-      console.log(`Valid Letter Cache after: ${validLettersCache}`);
-      console.log(`Answer: ${answer}`);
-      console.log("Results" + resultByLetter);
-    } else if (validLettersCache.includes(matrix[rowIndex][index].innerText)) {
-      console.log(
-        `Guess: ${matrix[rowIndex][index].innerText} is included in ${answer}`
-      );
-      resultByLetter.push(closeMatchStyle);
-
-      let indexToDelete = validLettersCache.indexOf(answer[index]);
-      console.log(
-        `Deleting Letter: ${answer[index]} on index: ${indexToDelete}`
-      );
-      validLettersCache.splice(indexToDelete, 1);
-
-      console.log(`Valid Letter Cache after: ${validLettersCache}`);
-      console.log("Results" + resultByLetter);
-    } else {
-      console.log(
-        `Guess: ${matrix[rowIndex][index].innerText} Not in word ${answer}`
-      );
-      resultByLetter.push(dirtyBoxStyle);
-      console.log(`Valid Letter Cache after: ${validLettersCache}`);
-      console.log("Results" + resultByLetter);
-    }
-  }
+  comparisonResults = spotPerfectMatches(guess, answer, comparisonResults);
+  comparisonResults = spotCloseMatches(guess, answer, comparisonResults);
 
   for (let index = 0; index < totalColumns; index++) {
     matrix[rowIndex][index].setAttribute(
       "class",
-      `${matrix[rowIndex][index].className} ${resultByLetter[index]}`
+      `${matrix[rowIndex][index].className} ${comparisonResults[index]}`
     );
   }
-  console.log(`Letter Cache ${validLettersCache}`);
-  console.log(`Result By Letter ${resultByLetter}`);
 }
 
-letterBoxObj = {
-  letter: "",
-  dirty: false,
-  perfectMatch: null,
-  isContained: null,
-  borderColor: "green",
-};
+function spotPerfectMatches(guess, answer, comparisonResults) {
+  for (let index = 0; index < totalColumns; index++) {
+    const guessedLetter = guess[index];
+    const answerLetter = answer[index];
+    if (guessedLetter.innerText === answerLetter) {
+      console.log(
+        `Guess: ${guessedLetter.innerText} is Equal to ${answerLetter}`
+      );
+      comparisonResults.push(perfectMatchStyle);
+      let amount = answerFrequencyMap.get(guessedLetter.innerText);
+      answerFrequencyMap.set(guessedLetter.innerText, amount - 1);
+      logMapValues(answerFrequencyMap);
+    } else {
+      comparisonResults.push(dirtyBoxStyle);
+    }
+  }
+  return comparisonResults;
+}
 
-function validateGuessWord() {}
+function spotCloseMatches(guess, answer, comparisonResults) {
+  for (let index = 0; index < totalColumns; index++) {
+    const guessedLetter = guess[index];
+    const answerLetter = answer[index];
+    if (answerFrequencyMap.get(guessedLetter.innerText) < 1) {
+      console.log(`Letter ${guessedLetter.innerText} Frequency depleted.`);
+    } else if (
+      guessedLetter.innerText !== answerLetter &&
+      answer.includes(guessedLetter.innerText)
+    ) {
+      console.log(
+        `Guess: ${guessedLetter.innerText} is Not Equalt But Contained in  ${answer}`
+      );
+      comparisonResults[index] = closeMatchStyle;
+      let amount = answerFrequencyMap.get(guessedLetter.innerText);
+      answerFrequencyMap.set(guessedLetter.innerText, amount - 1);
+      logMapValues(answerFrequencyMap);
+    }
+  }
+  return comparisonResults;
+}
+
+function createLetterFrequencyMap(lettersList) {
+  const frequencyMap = new Map();
+  lettersList.forEach((letter) => {
+    if (frequencyMap.has(letter)) {
+      let amount = frequencyMap.get(letter);
+      frequencyMap.set(letter, (amount += 1));
+    } else {
+      frequencyMap.set(letter, 1);
+    }
+  });
+
+  return frequencyMap;
+}
+
+function logMapValues(map) {
+  const keys = map.keys();
+  console.log("answerMap Key:Values");
+  keys.forEach((key) => {
+    console.log(`"${key}": ${map.get(key)}`);
+  });
+}
