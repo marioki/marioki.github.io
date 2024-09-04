@@ -1,62 +1,62 @@
 * {
-    box-sizing: border-box;
-    font-family: "Space Mono";
+  box-sizing: border-box;
+  font-family: "Space Mono";
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .main-page-header {
-    display: flex;
-    justify-content: center;
-    background-color: aliceblue;
-    padding: 16px;
+  display: flex;
+  justify-content: center;
+  background-color: aliceblue;
+  padding: 16px;
 }
 
 .name-and-subtitle {
-    justify-content: center;
+  justify-content: center;
 }
 
 .my-name {
-    text-align: center;
-    margin: 0;
+  text-align: center;
+  margin: 0;
 }
 
 .subtitle {
-    margin: 0;
+  margin: 0;
 }
 
 .main-nav-bar {
-    
-    padding-inline-start: 0;
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
+  padding-inline-start: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  justify-content: center;
 }
 
 .nav-bar-item {
-    margin: auto;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 main {
-    display: flex;
-    margin: auto;
-    padding: 16px;
-    margin-top: 32px;
-    max-width: 700px;
-
+  display: flex;
+  margin: auto;
+  padding: 16px;
+  margin-top: 32px;
+  max-width: 700px;
 }
 
 .project-list {
-    list-style: decimal-leading-zeros;
+  list-style: decimal-leading-zeros;
 }
 
 .project-list-item {
-    text-decoration: none;
-    font-size: large;
+  text-decoration: none;
+  font-size: large;
 }
