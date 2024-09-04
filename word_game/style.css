@@ -23,6 +23,7 @@ main {
 
 .letter-box {
   font-size: 2em;
+  text-transform: lowercase;
   font-weight: bold;
   color: black;
   display: flex;

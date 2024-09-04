@@ -35,21 +35,39 @@ let usedLetters = 0;
 let rowIndex = 0;
 const totalRows = 6;
 const totalColumns = 5;
-const matrix = generateLetterBoxMatix();
-const answer = ["C", "A", "L", "M", "A"];
+
 const dirtyBoxStyle = "dirty";
 const closeMatchStyle = "close-match";
 const perfectMatchStyle = "perfect-match";
-let answerFrequencyMap = createLetterFrequencyMap(answer);
+const wordOfTheDayUrl = "https://words.dev-apis.com/word-of-the-day?random=1";
+
+let answer;
+let answerFrequencyMap;
+let matrix;
 
 document.addEventListener("keydown", (keyPressed) =>
   handleKeyboardInput(keyPressed)
 );
 
+initializeGame();
+
+async function initializeGame() {
+  answer = await getTodaysWord();
+  answerFrequencyMap = createLetterFrequencyMap(answer);
+  matrix = generateLetterBoxMatix();
+}
+
+async function getTodaysWord() {
+  const response = await fetch(wordOfTheDayUrl);
+  const json = await response.json();
+  letters = json.word.split("");
+  return letters;
+}
+
 function handleKeyboardInput(keyPressed) {
   console.log(keyPressed);
-  buttonValue = keyPressed["key"].toUpperCase();
-  if (upperCaseAlphabet.includes(buttonValue)) {
+  buttonValue = keyPressed["key"];
+  if (isLetter(buttonValue)) {
     handleLetterInputs(buttonValue);
   } else {
     code = keyPressed["code"];
@@ -111,11 +129,9 @@ function compareGuessToAnswer() {
   let comparisonResults = [];
   const guess = matrix[rowIndex];
 
-  const answerMap = createLetterFrequencyMap(answer);
-
   console.log("Values Before Comparison:");
   console.log(`Answer: ${answer}`);
-  logMapValues(answerMap);
+  logMapValues(answerFrequencyMap);
 
   comparisonResults = spotPerfectMatches(guess, answer, comparisonResults);
   comparisonResults = spotCloseMatches(guess, answer, comparisonResults);
@@ -170,6 +186,7 @@ function spotCloseMatches(guess, answer, comparisonResults) {
 }
 
 function createLetterFrequencyMap(lettersList) {
+  
   const frequencyMap = new Map();
   lettersList.forEach((letter) => {
     if (frequencyMap.has(letter)) {
@@ -189,4 +206,8 @@ function logMapValues(map) {
   keys.forEach((key) => {
     console.log(`"${key}": ${map.get(key)}`);
   });
+}
+
+function isLetter(letter) {
+  return /^[a-zA-Z]$/.test(letter);
 }
