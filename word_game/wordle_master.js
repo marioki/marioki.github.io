@@ -1,35 +1,7 @@
 console.log("Wordle Clone...");
 
-const playArea = document.querySelector(".play-area");
-const letterBoxesElements = document.querySelectorAll(".letter-box");
-const upperCaseAlphabet = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-];
+let playArea = document.querySelector(".play-area");
+let letterBoxesElements = document.querySelectorAll(".letter-box");
 
 let usedLetters = 0;
 let rowIndex = 0;
@@ -186,7 +158,6 @@ function spotCloseMatches(guess, answer, comparisonResults) {
 }
 
 function createLetterFrequencyMap(lettersList) {
-  
   const frequencyMap = new Map();
   lettersList.forEach((letter) => {
     if (frequencyMap.has(letter)) {
