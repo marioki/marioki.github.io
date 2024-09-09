@@ -11,15 +11,17 @@ const totalColumns = 5;
 const dirtyBoxStyle = "dirty";
 const closeMatchStyle = "close-match";
 const perfectMatchStyle = "perfect-match";
+const invalidGuess = "invalid-guess";
 const wordOfTheDayUrl = "https://words.dev-apis.com/word-of-the-day?random=1";
+const validateWordUrl = "https://words.dev-apis.com/validate-word";
 
 let answer;
 let answerFrequencyMap;
 let matrix;
 
-document.addEventListener("keydown", (keyPressed) =>
-  handleKeyboardInput(keyPressed)
-);
+function keyboardListener(event) {
+  handleKeyboardInput(event);
+}
 
 initializeGame();
 
@@ -27,6 +29,7 @@ async function initializeGame() {
   answer = await getTodaysWord();
   answerFrequencyMap = createLetterFrequencyMap(answer);
   matrix = generateLetterBoxMatix();
+  document.addEventListener("keydown", keyboardListener, false);
 }
 
 async function getTodaysWord() {
@@ -55,25 +58,41 @@ function handleLetterInputs(letter) {
   }
 }
 
-function handleControlInputs(code) {
+function endGame() {
+  console.log(`removing listeners`);
+  document.removeEventListener("keydown", keyboardListener, false);
+  //Show Winner or loser dialog
+}
+
+async function handleControlInputs(code) {
   console.log(`Command: ${code}`);
   if (code === "Enter" && usedLetters === 5) {
-    //Check if word is valid
-    compareGuessToAnswer(matrix[rowIndex], answer);
-    moveCursorToNextRow();
+    const wordIsValid = await validateWordExists(matrix[rowIndex]);
+    if (wordIsValid) {
+      compareGuessToAnswer(matrix[rowIndex], answer);
+      if (rowIndex < totalRows - 1) {
+        moveCursorToNextRow();
+      } else {
+        endGame();
+      }
+    } else {
+      paintLetterBoxes(rowIndex, [
+        invalidGuess,
+        invalidGuess,
+        invalidGuess,
+        invalidGuess,
+        invalidGuess,
+      ]);
+    }
   } else if (code === "Backspace") {
     deleteLastLetter();
   }
 }
 
 function moveCursorToNextRow() {
-  if (rowIndex < totalRows - 1) {
-    rowIndex++;
-    usedLetters = 0;
-    answerFrequencyMap = createLetterFrequencyMap(answer);
-  } else {
-    console.log("No more rows!");
-  }
+  rowIndex++;
+  usedLetters = 0;
+  answerFrequencyMap = createLetterFrequencyMap(answer);
 }
 
 function generateLetterBoxMatix() {
@@ -97,6 +116,30 @@ function deleteLastLetter() {
   }
 }
 
+function extractWordFromArray(letterArray) {
+  let word = "";
+  letterArray.forEach((letter) => {
+    word += letter.innerText;
+  });
+  return word;
+}
+
+async function validateWordExists(guessletters) {
+  const guesWord = extractWordFromArray(guessletters);
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  console.log(`Validating guess word: ${guesWord}`);
+
+  const response = await fetch(validateWordUrl, {
+    method: "POST",
+    body: JSON.stringify({ word: guesWord }),
+    headers: myHeaders,
+  });
+  jsonObject = await response.json();
+  console.log(jsonObject.validWord);
+  return jsonObject.validWord;
+}
+
 function compareGuessToAnswer() {
   let comparisonResults = [];
   const guess = matrix[rowIndex];
@@ -108,10 +151,14 @@ function compareGuessToAnswer() {
   comparisonResults = spotPerfectMatches(guess, answer, comparisonResults);
   comparisonResults = spotCloseMatches(guess, answer, comparisonResults);
 
+  paintLetterBoxes(rowIndex, comparisonResults);
+}
+
+function paintLetterBoxes(rowIndex, boxStyles) {
   for (let index = 0; index < totalColumns; index++) {
     matrix[rowIndex][index].setAttribute(
       "class",
-      `${matrix[rowIndex][index].className} ${comparisonResults[index]}`
+      `${matrix[rowIndex][index].className} ${boxStyles[index]}`
     );
   }
 }

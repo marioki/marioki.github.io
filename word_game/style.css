@@ -3,7 +3,7 @@
   font-family: "Space Mono";
 }
 
-body{
+body {
   margin: 0;
 }
 .main-page-header {
@@ -64,6 +64,12 @@ main {
   border: 3px solid rgb(179, 179, 179);
   width: 64px;
   height: 64px;
+}
+
+.invalid-guess {
+  border: 3px solid rgb(215, 64, 64);
+  background-color: white;
+  color: black;
 }
 
 .perfect-match {
