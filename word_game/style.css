@@ -48,6 +48,7 @@ main {
 .letter-row {
   display: flex;
   list-style: none;
+  padding: 0;
 }
 
 .letter-box {
@@ -88,4 +89,9 @@ main {
   border: none;
   background-color: rgb(201, 180, 89);
   color: white;
+}
+
+.loading-indicator {
+  display: none;
+  justify-content: center;
 }

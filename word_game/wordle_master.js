@@ -2,6 +2,7 @@ console.log("Wordle Clone...");
 
 let playArea = document.querySelector(".play-area");
 let letterBoxesElements = document.querySelectorAll(".letter-box");
+let loadingIndicator = document.querySelector(".loading-indicator");
 
 let usedLetters = 0;
 let rowIndex = 0;
@@ -24,6 +25,13 @@ let matrix;
 
 function keyboardListener(event) {
   handleKeyboardInput(event);
+}
+
+function showLoadingIndicator() {
+  loadingIndicator.style.display = "flex";
+}
+function hideLoadingIndicator() {
+  loadingIndicator.style.display = "none";
 }
 
 initializeGame();
@@ -70,6 +78,7 @@ function endGame() {
 async function handleControlInputs(code) {
   console.log(`Command: ${code}`);
   if (code === "Enter" && usedLetters === 5) {
+    showLoadingIndicator();
     const wordIsValid = await validateWordExists(matrix[rowIndex]);
     if (wordIsValid) {
       compareGuessToAnswer(matrix[rowIndex], answer);
@@ -77,6 +86,7 @@ async function handleControlInputs(code) {
     } else {
       markRowAsInvalid();
     }
+    hideLoadingIndicator();
   } else if (code === "Backspace") {
     deleteLastLetter();
   }
