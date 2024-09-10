@@ -12,6 +12,9 @@ const dirtyBoxStyle = "dirty";
 const closeMatchStyle = "close-match";
 const perfectMatchStyle = "perfect-match";
 const invalidGuess = "invalid-guess";
+const winningArray =
+  "perfect-match,perfect-match,perfect-match,perfect-match,perfect-match";
+
 const wordOfTheDayUrl = "https://words.dev-apis.com/word-of-the-day?random=1";
 const validateWordUrl = "https://words.dev-apis.com/validate-word";
 
@@ -70,19 +73,9 @@ async function handleControlInputs(code) {
     const wordIsValid = await validateWordExists(matrix[rowIndex]);
     if (wordIsValid) {
       compareGuessToAnswer(matrix[rowIndex], answer);
-      if (rowIndex < totalRows - 1) {
-        moveCursorToNextRow();
-      } else {
-        endGame();
-      }
+      moveCursorToNextRow();
     } else {
-      paintLetterBoxes(rowIndex, [
-        invalidGuess,
-        invalidGuess,
-        invalidGuess,
-        invalidGuess,
-        invalidGuess,
-      ]);
+      markRowAsInvalid();
     }
   } else if (code === "Backspace") {
     deleteLastLetter();
@@ -90,9 +83,13 @@ async function handleControlInputs(code) {
 }
 
 function moveCursorToNextRow() {
-  rowIndex++;
-  usedLetters = 0;
-  answerFrequencyMap = createLetterFrequencyMap(answer);
+  if (rowIndex < totalRows - 1) {
+    rowIndex++;
+    usedLetters = 0;
+    answerFrequencyMap = createLetterFrequencyMap(answer);
+  } else {
+    endGame();
+  }
 }
 
 function generateLetterBoxMatix() {
@@ -179,6 +176,15 @@ function spotPerfectMatches(guess, answer, comparisonResults) {
       comparisonResults.push(dirtyBoxStyle);
     }
   }
+
+  console.log(
+    `Comparison Resul Array in string: ${comparisonResults.toString()}`
+  );
+  console.log(`Winnig Array in string: ${winningArray}`);
+  if (comparisonResults.toString() === winningArray) {
+    console.log("You WON!");
+    endGame();
+  }
   return comparisonResults;
 }
 
@@ -228,4 +234,14 @@ function logMapValues(map) {
 
 function isLetter(letter) {
   return /^[a-zA-Z]$/.test(letter);
+}
+
+function markRowAsInvalid() {
+  paintLetterBoxes(rowIndex, [
+    invalidGuess,
+    invalidGuess,
+    invalidGuess,
+    invalidGuess,
+    invalidGuess,
+  ]);
 }
