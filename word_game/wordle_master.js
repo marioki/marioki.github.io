@@ -23,6 +23,8 @@ let answer;
 let answerFrequencyMap;
 let matrix;
 
+initializeGame();
+
 function keyboardListener(event) {
   handleKeyboardInput(event);
 }
@@ -34,13 +36,11 @@ function hideLoadingIndicator() {
   loadingIndicator.style.display = "none";
 }
 
-initializeGame();
-
 async function initializeGame() {
   answer = await getTodaysWord();
   answerFrequencyMap = createLetterFrequencyMap(answer);
   matrix = generateLetterBoxMatix();
-  document.addEventListener("keydown", keyboardListener, false);
+  attachEventListeners();
 }
 
 async function getTodaysWord() {
@@ -69,22 +69,28 @@ function handleLetterInputs(letter) {
   }
 }
 
-function endGame() {
-  console.log(`removing listeners`);
-  document.removeEventListener("keydown", keyboardListener, false);
-  //Show Winner or loser dialog
-}
-
 async function handleControlInputs(code) {
   console.log(`Command: ${code}`);
   if (code === "Enter" && usedLetters === 5) {
+    removeEventListeners();
     showLoadingIndicator();
     const wordIsValid = await validateWordExists(matrix[rowIndex]);
     if (wordIsValid) {
-      compareGuessToAnswer(matrix[rowIndex], answer);
-      moveCursorToNextRow();
+      const comparisonResults = compareGuessToAnswer(matrix[rowIndex], answer);
+      paintLetterBoxes(rowIndex, comparisonResults);
+
+      if (comparisonResults.toString() === winningArray) {
+        console.log("You WON!");
+        endGame(true);
+      } else if (rowIndex < totalRows - 1) {
+        moveCursorToNextRow();
+        attachEventListeners();
+      } else {
+        endGame();
+      }
     } else {
       markRowAsInvalid();
+      attachEventListeners();
     }
     hideLoadingIndicator();
   } else if (code === "Backspace") {
@@ -93,12 +99,11 @@ async function handleControlInputs(code) {
 }
 
 function moveCursorToNextRow() {
+  console.log(`moveCursorToNextRow() executed.`);
   if (rowIndex < totalRows - 1) {
     rowIndex++;
     usedLetters = 0;
     answerFrequencyMap = createLetterFrequencyMap(answer);
-  } else {
-    endGame();
   }
 }
 
@@ -158,10 +163,11 @@ function compareGuessToAnswer() {
   comparisonResults = spotPerfectMatches(guess, answer, comparisonResults);
   comparisonResults = spotCloseMatches(guess, answer, comparisonResults);
 
-  paintLetterBoxes(rowIndex, comparisonResults);
+  return comparisonResults;
 }
 
 function paintLetterBoxes(rowIndex, boxStyles) {
+  console.log(`Painting Letter Boxes...`);
   for (let index = 0; index < totalColumns; index++) {
     matrix[rowIndex][index].setAttribute(
       "class",
@@ -187,14 +193,6 @@ function spotPerfectMatches(guess, answer, comparisonResults) {
     }
   }
 
-  console.log(
-    `Comparison Resul Array in string: ${comparisonResults.toString()}`
-  );
-  console.log(`Winnig Array in string: ${winningArray}`);
-  if (comparisonResults.toString() === winningArray) {
-    console.log("You WON!");
-    endGame();
-  }
   return comparisonResults;
 }
 
@@ -254,4 +252,26 @@ function markRowAsInvalid() {
     invalidGuess,
     invalidGuess,
   ]);
+}
+
+function endGame(userWon) {
+  // Use a minimal delay to allow the DOM to update
+  setTimeout(() => {
+    if (userWon) {
+      alert("Congrats🎉! You won!");
+    } else {
+      alert(`Whoops😅, the word was: ${answer}`);
+    }
+  }, 0);
+  removeEventListeners();
+}
+
+function removeEventListeners() {
+  console.log(`removing listeners`);
+  document.removeEventListener("keydown", keyboardListener, false);
+}
+
+function attachEventListeners() {
+  console.log(`attaching Event Listeners`);
+  document.addEventListener("keydown", keyboardListener, false);
 }
