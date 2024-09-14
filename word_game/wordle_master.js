@@ -235,6 +235,8 @@ function createLetterFrequencyMap(lettersList) {
 function logMapValues(map) {
   const keys = map.keys();
   console.log("answerMap Key:Values");
+  console.log(keys);
+  console.log(typeof keys);
   keys.forEach((key) => {
     console.log(`"${key}": ${map.get(key)}`);
   });
@@ -262,7 +264,7 @@ function endGame(userWon) {
     } else {
       alert(`Whoops😅, the word was: ${answer}`);
     }
-  }, 0);
+  }, 100);
   removeEventListeners();
 }
 
