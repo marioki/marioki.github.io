@@ -1,4 +1,3 @@
-console.log("Wordle Clone...");
 
 let playArea = document.querySelector(".play-area");
 let letterBoxesElements = document.querySelectorAll(".letter-box");
@@ -51,7 +50,6 @@ async function getTodaysWord() {
 }
 
 function handleKeyboardInput(keyPressed) {
-  console.log(keyPressed);
   buttonValue = keyPressed["key"];
   if (isLetter(buttonValue)) {
     handleLetterInputs(buttonValue);
@@ -62,7 +60,6 @@ function handleKeyboardInput(keyPressed) {
 }
 
 function handleLetterInputs(letter) {
-  console.log(`Letter: ${letter}`);
   if (usedLetters < 5) {
     matrix[rowIndex][usedLetters].innerText = letter;
     usedLetters++;
@@ -70,7 +67,6 @@ function handleLetterInputs(letter) {
 }
 
 async function handleControlInputs(code) {
-  console.log(`Command: ${code}`);
   if (code === "Enter" && usedLetters === 5) {
     removeEventListeners();
     showLoadingIndicator();
@@ -80,7 +76,6 @@ async function handleControlInputs(code) {
       paintLetterBoxes(rowIndex, comparisonResults);
 
       if (comparisonResults.toString() === winningArray) {
-        console.log("You WON!");
         endGame(true);
       } else if (rowIndex < totalRows - 1) {
         moveCursorToNextRow();
@@ -99,7 +94,6 @@ async function handleControlInputs(code) {
 }
 
 function moveCursorToNextRow() {
-  console.log(`moveCursorToNextRow() executed.`);
   if (rowIndex < totalRows - 1) {
     rowIndex++;
     usedLetters = 0;
@@ -117,7 +111,6 @@ function generateLetterBoxMatix() {
       letterCounter++;
     }
   }
-  console.log(my2DArray);
   return my2DArray;
 }
 
@@ -140,7 +133,6 @@ async function validateWordExists(guessletters) {
   const guesWord = extractWordFromArray(guessletters);
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  console.log(`Validating guess word: ${guesWord}`);
 
   const response = await fetch(validateWordUrl, {
     method: "POST",
@@ -148,18 +140,12 @@ async function validateWordExists(guessletters) {
     headers: myHeaders,
   });
   jsonObject = await response.json();
-  console.log(jsonObject.validWord);
   return jsonObject.validWord;
 }
 
 function compareGuessToAnswer() {
   let comparisonResults = [];
   const guess = matrix[rowIndex];
-
-  console.log("Values Before Comparison:");
-  console.log(`Answer: ${answer}`);
-  logMapValues(answerFrequencyMap);
-
   comparisonResults = spotPerfectMatches(guess, answer, comparisonResults);
   comparisonResults = spotCloseMatches(guess, answer, comparisonResults);
 
@@ -167,7 +153,6 @@ function compareGuessToAnswer() {
 }
 
 function paintLetterBoxes(rowIndex, boxStyles) {
-  console.log(`Painting Letter Boxes...`);
   for (let index = 0; index < totalColumns; index++) {
     matrix[rowIndex][index].setAttribute(
       "class",
@@ -181,13 +166,10 @@ function spotPerfectMatches(guess, answer, comparisonResults) {
     const guessedLetter = guess[index];
     const answerLetter = answer[index];
     if (guessedLetter.innerText === answerLetter) {
-      console.log(
-        `Guess: ${guessedLetter.innerText} is Equal to ${answerLetter}`
-      );
+
       comparisonResults.push(perfectMatchStyle);
       let amount = answerFrequencyMap.get(guessedLetter.innerText);
       answerFrequencyMap.set(guessedLetter.innerText, amount - 1);
-      logMapValues(answerFrequencyMap);
     } else {
       comparisonResults.push(dirtyBoxStyle);
     }
@@ -201,18 +183,14 @@ function spotCloseMatches(guess, answer, comparisonResults) {
     const guessedLetter = guess[index];
     const answerLetter = answer[index];
     if (answerFrequencyMap.get(guessedLetter.innerText) < 1) {
-      console.log(`Letter ${guessedLetter.innerText} Frequency depleted.`);
     } else if (
       guessedLetter.innerText !== answerLetter &&
       answer.includes(guessedLetter.innerText)
     ) {
-      console.log(
-        `Guess: ${guessedLetter.innerText} is Not Equalt But Contained in  ${answer}`
-      );
+
       comparisonResults[index] = closeMatchStyle;
       let amount = answerFrequencyMap.get(guessedLetter.innerText);
       answerFrequencyMap.set(guessedLetter.innerText, amount - 1);
-      logMapValues(answerFrequencyMap);
     }
   }
   return comparisonResults;
@@ -267,11 +245,9 @@ function endGame(userWon) {
 }
 
 function removeEventListeners() {
-  console.log(`removing listeners`);
   document.removeEventListener("keydown", keyboardListener, false);
 }
 
 function attachEventListeners() {
-  console.log(`attaching Event Listeners`);
   document.addEventListener("keydown", keyboardListener, false);
 }
