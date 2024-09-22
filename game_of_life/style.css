@@ -1,0 +1,30 @@
+
+.grid-section{
+    display: flex;
+    justify-content: center;
+}
+.grid {
+    padding-inline-start: 0;
+    
+}
+.row {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0px;
+    margin: 0;
+}
+
+.cell{
+    height: 32px;
+    width: 32px;
+    background-color: white;
+}
+
+.dead {
+    background-color: white;
+}
+
+.alive {
+    background-color: black;
+}
+
