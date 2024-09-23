@@ -5,10 +5,14 @@ initializeGame();
 function initializeGame() {
     const gridHeigth = 10;
     const gridWidth = 10;
+    let generation = 0;
     cells = document.querySelectorAll(".cell");
+    startButton = document.querySelector(".start-button");
+    stopButton = document.querySelector(".stop-button");
     const cellMatrix = generateElementMatrix(cells, gridHeigth, gridWidth);
-
-
+    
+    let interval = 1000;
+    startButton.onclick = startTime;
 
     function generateElementMatrix(elementList, heigth, width) {
         counter = 0;
@@ -37,9 +41,22 @@ function initializeGame() {
         } else {
             cellMatrix[y][x].classList.add("alive");
         }
-
-
-
     }
+
+    function startTime() {
+        setInterval(mutate, interval);
+    }
+
+    function mutate() {
+        console.log(`Generation ${generation}`);
+        for (let y = 0; y < gridHeigth; y++) {
+            for (x = 0; x < gridWidth; x++) {
+                toggleCell(x, y);
+            }
+        }
+        generation++;
+    }
+
+
 }
 
