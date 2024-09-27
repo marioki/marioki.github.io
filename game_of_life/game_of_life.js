@@ -97,13 +97,10 @@ function initializeGame() {
 
             if (totalLivingNeighbors > 3 || totalLivingNeighbors < 2) {
                 nextCellStateIsAlive = false;
-                console.log(`Cell should die cuz neighbors are less than 2 or more than 3`);
             } else if (totalLivingNeighbors === 3) {
                 nextCellStateIsAlive = true;
-                console.log(`Cell should be born cuz neighbors al exactly 3`);
             } else if (totalLivingNeighbors < 4 && totalLivingNeighbors > 1 && subjectCellIsAlive) {
                 nextCellStateIsAlive = true;
-                console.log(`Cell should stay alive cuz neighbors are 2 or 3`);
             } else {
                 return;
             }
@@ -124,21 +121,16 @@ function initializeGame() {
     }
 
 
-
-
     function updateGenerationDisplay() {
         generationCounter++;
         generationDisplay.innerText = `Generation Number: ${generationCounter}`;
     }
-
 
     /**
     * Counts the number of living neighbors of the cell at position x,y.
     */
     function countLivingNeighbors(x, y) {
         let totalLivingNeighbors = 0;
-        let keepCellAlive = false;
-
 
         let topRowTotal = checkTopRow();
         let sameRow = checkSameRow();
