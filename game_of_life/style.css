@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    font-family: "Space Mono";
+}
+
+body {
+    margin: 0;
+}
+
+.project-article {
+    max-width: 50em;
+    margin: auto;
+    padding: 16px;
+    padding-bottom: 32;
+  }
+
+
+.main-page-header {
+    display: flex;
+    justify-content: center;
+    background-color: aliceblue;
+    padding: 16px;
+  }
+  
+  .name-and-subtitle {
+    justify-content: center;
+  }
+  
+  .my-name {
+    text-align: center;
+    margin: 0;
+  }
+  
+  .subtitle {
+    margin: 0;
+  }
+  
+
+.grid-section {
+    display: flex;
+    justify-content: center;
+}
+
+.grid {
+    padding-inline-start: 0;
+
+}
+
+.row {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0px;
+    margin: 0;
+}
+
+.cell {
+    height: 32px;
+    width: 32px;
+    background-color: white;
+}
+
+.dead {
+    background-color: white;
+}
+
+.alive {
+    background-color: black;
+}
