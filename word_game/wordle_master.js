@@ -233,7 +233,7 @@ function createLetterFrequencyMap(lettersList) {
 }
 
 function logMapValues(map) {
-  const keys = map.keys();
+  const keys = Array.from(map.keys());
   console.log("answerMap Key:Values");
   console.log(keys);
   console.log(typeof keys);
