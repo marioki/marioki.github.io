@@ -23,3 +23,4 @@ function floorCalculator(instructions) {
   console.log(`Santa must go to the ${currentFloor} floor`);
   return currentFloor;
 }
+
