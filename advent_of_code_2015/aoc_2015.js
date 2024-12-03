@@ -24,3 +24,42 @@ function floorCalculator(instructions) {
   return currentFloor;
 }
 
+function wrappingPaperCalculator(listOfBoxDimensions) {
+  var totalWrappingPaperNeeded = 0;
+  for (let step = 0; step < listOfBoxDimensions.length; step++) {
+    var boxDimensions = extractDimensions(listOfBoxDimensions[step]);
+    var boxArea = calculateBoxArea(boxDimensions);
+    var extraPaper = calculateExtraPaper(boxDimensions);
+    totalWrappingPaperNeeded += boxArea + extraPaper;
+  }
+
+  function extractDimensions(dimensionString) {
+    var dimensionsSplitStrings = dimensionString.split("x");
+    var dimensionsNumbers = dimensionsSplitStrings.reduce(
+      (accumulator, currentValue) => accumulator.concat(+currentValue),
+      []
+    );
+    console.log(` dimensions are: ${dimensionsNumbers}`);
+    return dimensionsNumbers;
+  }
+
+  function calculateBoxArea(boxDimensions) {
+    var boxArea =
+      2 * boxDimensions[0] * boxDimensions[1] +
+      2 * boxDimensions[1] * boxDimensions[2] +
+      2 * boxDimensions[2] * boxDimensions[0];
+    console.log(` area is: ${boxArea}`);
+    return boxArea;
+  }
+
+  function calculateExtraPaper(boxDimensions) {
+    var sortedDimensions = boxDimensions.sort((a, b) => a - b);
+    console.log(`sorted dimensions ${sortedDimensions}`);
+    var extraPaper = sortedDimensions[0] * sortedDimensions[1];
+    console.log(` extra paper is: ${extraPaper}`);
+    return extraPaper;
+  }
+
+  console.log(`Total Wrapping paper needed is: ${totalWrappingPaperNeeded}`);
+  return totalWrappingPaperNeeded;
+}
