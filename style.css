@@ -7,7 +7,8 @@ body {
   margin: 0;
 }
 
-a:link, a:visited {
+a:link,
+a:visited {
   text-decoration: none;
   color: rgb(20, 33, 61);
 }
@@ -50,14 +51,26 @@ main {
   margin: auto;
   padding: 16px;
   margin-top: 32px;
-  max-width: 700px;
+  justify-content: center;
 }
 
 .project-list {
-  list-style: decimal-leading-zeros;
+  list-style: circle;
 }
 
 .project-list-item {
   text-decoration: none;
   font-size: large;
+}
+
+.project-stack-title {
+  display: flex;
+  align-items: center; /* Vertically centers content */
+  gap: 10em; /* Space between the image and the title */
+  margin: 20px;
+}
+.stack-icon-image {
+  height: 100px; /* Adjust according to need */
+  width: 150px;
+  object-fit: scale-down; /* Ensures the image is not stretched if ratio differs */
 }
