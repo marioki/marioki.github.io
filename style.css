@@ -14,14 +14,14 @@ a:visited {
 }
 
 .main-page-header {
-  display: flex;
+  display: block;
   justify-content: center;
   background-color: aliceblue;
   padding: 16px;
 }
 
 .name-and-subtitle {
-  justify-content: center;
+  display: block;
 }
 
 .my-name {
@@ -30,7 +30,25 @@ a:visited {
 }
 
 .subtitle {
-  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.social-links {
+  display: flex;
+  gap: 32px;
+  justify-content:  center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.social-button {
+  display: flex;
+  gap: 8px;
+}
+
+.social-icon {
+  height: 25px;
 }
 
 .main-nav-bar {
@@ -65,9 +83,8 @@ main {
 
 .project-stack-title {
   display: flex;
-  align-items: center; /* Vertically centers content */
-  gap: 10em; /* Space between the image and the title */
-  margin: 20px;
+  align-items: center;
+  gap: 32px;
 }
 .stack-icon-image {
   height: 100px; /* Adjust according to need */
