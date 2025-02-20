@@ -1,83 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-      rel="stylesheet"
-    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>👨🏾‍💻 Mario Kirven</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/a7fd099599.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Mario Kirven's Portfolio Website</title>
   </head>
-
   <body>
-    <header class="main-page-header">
-      <div class="name-and-subtitle">
-        <h1 class="my-name">👨🏾‍💻 Mario Kirven</h1>
-        <h4 class="subtitle">Software Engineer & Mobile Developer</h4>
-      </div>
-      <div class="social-links">
-        <a href="https://www.linkedin.com/in/mario-kirven/" target="_blank">
-            <div class="social-button">
-                <img class="social-icon" src="LinkedIn_icon.svg" alt="github_icon" />
-                <span>LinkedIn</span>
-            </div>
+    <nav>
+      <ul>
+        <li>
+          <h1>
+            <a href="index.html">
+              <span class="fa-solid fa-square-binary" aria-hidden="true">
+              </span>
+              Mario Kirven
+            </a>
+          </h1>
+        </li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li>
+          <a href="https://www.linkedin.com/in/mario-kirven/" target="_blank">
+            <span class="fa-brands fa-linkedin" aria-hidden="true"></span>
+            <span class="sr-only">LinkedIn</span>
           </a>
+        </li>
+        <li>
           <a href="https://github.com/marioki" target="_blank">
-            <div class="social-button">
-                <img class="social-icon" src="github_icon.svg" alt="github_icon" />
-                <span>GitHub</span>
-            </div>
+            <span class="fa-brands fa-github" ariaƒ-hidden="true"></span>
+            <span class="sr-only">GitHub</span>
           </a>
+        </li>
+        <li><a class="ancor-button" href="">Resume</a></li>
+      </ul>
+    </nav>
+    <div class="passport">
+      <section id="intro">
+        <p class="name">Hi, my name is<span>Mario Kirven.</span></p>
+        <h2>I build mobile apps.</h2>
+        <p>
+          I'm Software Engineer specialized in Flutter development for
+          cross-platform expiriences.
+        </p>
+      </section>
+    </div>
+    <div class="secondary-color-bg center-contents">
+      <section id="projects">
+        <h2>Latest Project</h2>
+        <ul class="project-list">
+          <li>
+            <article>
+              <div class="project-text">
+                <h3>Flutter Chess</h3>
+                <p class="project-description">
+                  An open source Flutter package that provides a chess board and
+                  chess pieces widgets. And a chess engine built with dart.
+                  Together they conform a complete cross platform chess game.
+                </p>
 
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section class="projects-section">
-        <div class="project-stack-title">
-          <img
-            class="stack-icon-image"
-            src="vanilla_web_icon.png"
-            alt="icons for html,css and javaScript"
-          />
-          <div>
-            <h3>Web development prjects</h3>
-            <ul class="project-list">
-              <li class="project-list-item">
-                <a href="./calculator/calculator.html">ios Calculator </a>
-              </li>
-              <li class="project-list-item">
-                <a href="./word_game/word_game.html">Wordle Clone</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="project-stack-title">
-          <img
-            class="stack-icon-image"
-            src="Google-flutter-logo.svg.png"
-            alt="flutter icon"
-          />
-          <div>
-            <h3>Flutter projects</h3>
-            <ul class="project-list">
-              <li class="project-list-item">
                 <a
                   href="https://github.com/marioki/flutter_chess"
                   target="_blank"
-                  >Flutter Chess - ui package and chess engine</a
                 >
-              </li>
-            </ul>
-          </div>
-        </div>
+                  Open on github
+                </a>
+                <div class="tech-stack">
+                  <h4>Technology Stack:</h4>
+                  <ul>
+                    <li>Flutter</li>
+                    <li>Dart</li>
+                  </ul>
+                </div>
+              </div>
+              <img
+                src="img/flutter_chess_demo-ezgif.com-optimize.gif"
+                alt="Portrait of Mario Kirven"
+              />
+            </article>
+          </li>
+        </ul>
       </section>
-    </main>
+    </div>
+
+    <div class="gradient-border">
+      <div class="secondary-color-bg">
+        <section id="contact">
+          <h3>Contact me</h3>
+          <p>
+            I'm always interested in hearing about new projects and
+            opportunities.
+          </p>
+          <p>
+            <a href="mailto:mariokirven.mk@gmail.com" class="ancor-button">
+              Email me
+            </a>
+          </p>
+        </section>
+      </div>
+    </div>
+    <div class="gradient-border">
+      <footer>
+        <h2>Mario Kirven &middot; Software Engineer</h2>
+        <p>Mario Kirven</p>
+        <ul>
+          <li>
+            <a href="https://www.linkedin.com/in/mario-kirven/" target="_blank">
+              <span class="fa-brands fa-linkedin" aria-hidden="true"> </span>
+              <span class="sr-only">linkedin</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/marioki">
+              <span class="fa-brands fa-github" aria-hidden="true"> </span>
+              <span class="sr-only">github</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:mariokirven.mk@gmail.com" target="_blank">
+              <span class="fa-solid fa-envelope" aria-hidden="true"> </span>
+              <span class="sr-only">email</span>
+            </a>
+          </li>
+        </ul>
+        <p>
+          <small>&copy; 2025 Mario Kirven. All rights reserved</small>
+        </p>
+      </footer>
+    </div>
   </body>
 </html>
