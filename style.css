@@ -225,7 +225,7 @@ article img {
 @media (min-width: 850px) {
   nav {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 2rem auto;
   }
   nav li:first-child {
     flex-basis: auto;
@@ -267,4 +267,8 @@ footer ul {
   flex-flow: row wrap;
   gap: 2rem;
   justify-content: center;
+}
+
+footer h2 {
+  font-size: 1rem;
 }
